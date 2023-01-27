@@ -1,9 +1,8 @@
-package com.demo.cryptoapp.pojo
+package com.demo.cryptoapp.data.api
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CoinInfo(
+data class TopCoinInfoDTO(
     @SerializedName("Name")
     val name: String? = null
 )

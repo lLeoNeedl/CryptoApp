@@ -1,11 +1,10 @@
-package com.demo.cryptoapp.database
+package com.demo.cryptoapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import com.demo.cryptoapp.pojo.CoinPriceInfo
-import retrofit2.http.Query
+import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
 
 @Dao
 interface CoinPriceInfoDao {

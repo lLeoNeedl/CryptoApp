@@ -1,130 +1,126 @@
-package com.demo.cryptoapp.pojo
+package com.demo.cryptoapp.data.api
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.demo.cryptoapp.api.ApiFactory
 import com.demo.cryptoapp.utils.convertTimestampToTime
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+data class CoinPriceInfoDTO(
     @SerializedName("TYPE")
-    val type: String? = null,
+    val type: String,
 
     @SerializedName("MARKET")
-    val market: String? = null,
+    val market: String,
 
-    @PrimaryKey
     @SerializedName("FROMSYMBOL")
     val fromSymbol: String,
 
     @SerializedName("TOSYMBOL")
-    val toSymbol: String? = null,
+    val toSymbol: String,
 
     @SerializedName("FLAGS")
-    val flags: String? = null,
+    val flags: String,
 
     @SerializedName("PRICE")
-    val price: Double? = null,
+    val price: Double,
 
     @SerializedName("LASTUPDATE")
-    val lastUpdate: Long? = null,
+    val lastUpdate: Long,
 
     @SerializedName("LASTVOLUME")
-    val lastVolume: Double? = null,
+    val lastVolume: Double,
 
     @SerializedName("LASTVOLUMETO")
-    val lastVolumeTo: Double? = null,
+    val lastVolumeTo: Double,
 
     @SerializedName("LASTTRADEID")
-    val lastTradeId: String? = null,
+    val lastTradeId: String,
 
     @SerializedName("VOLUMEDAY")
-    val volumeDay: Double? = null,
+    val volumeDay: Double,
 
     @SerializedName("VOLUMEDAYTO")
-    val volumeDayTo: Double? = null,
+    val volumeDayTo: Double,
 
     @SerializedName("VOLUME24HOUR")
-    val volume24Hour: Double? = null,
+    val volume24Hour: Double,
 
     @SerializedName("VOLUME24HOURTO")
-    val volume24HourTo: Double? = null,
+    val volume24HourTo: Double,
 
     @SerializedName("OPENDAY")
-    val openDay: Double? = null,
+    val openDay: Double,
 
     @SerializedName("HIGHDAY")
-    val highDay: Double? = null,
+    val highDay: Double,
 
     @SerializedName("LOWDAY")
-    val lowDay: Double? = null,
+    val lowDay: Double,
 
     @SerializedName("OPEN24HOUR")
-    val open24Hour: Double? = null,
+    val open24Hour: Double,
 
     @SerializedName("HIGH24HOUR")
-    val high24Hour: Double? = null,
+    val high24Hour: Double,
 
     @SerializedName("LOW24HOUR")
-    val low24Hour: Double? = null,
+    val low24Hour: Double,
 
     @SerializedName("LASTMARKET")
-    val lastMarket: String? = null,
+    val lastMarket: String,
 
     @SerializedName("VOLUMEHOUR")
-    val volumeHour: Double? = null,
+    val volumeHour: Double,
 
     @SerializedName("VOLUMEHOURTO")
-    val volumeHourTo: Double? = null,
+    val volumeHourTo: Double,
 
     @SerializedName("OPENHOUR")
-    val openHour: Double? = null,
+    val openHour: Double,
 
     @SerializedName("HIGHHOUR")
-    val highHour: Double? = null,
+    val highHour: Double,
 
     @SerializedName("LOWHOUR")
-    val lowHour: Double? = null,
+    val lowHour: Double,
 
     @SerializedName("TOPTIERVOLUME24HOUR")
-    val topTierVolume24Hour: Double? = null,
+    val topTierVolume24Hour: Double,
 
     @SerializedName("TOPTIERVOLUME24HOURTO")
-    val topTierVolume24HourTo: Double? = null,
+    val topTierVolume24HourTo: Double,
 
     @SerializedName("CHANGE24HOUR")
-    val change24Hour: Double? = null,
+    val change24Hour: Double,
 
     @SerializedName("CHANGEPCT24HOUR")
-    val changePCT24Hour: Double? = null,
+    val changePCT24Hour: Double,
 
     @SerializedName("CHANGEDAY")
-    val changeDay: Double? = null,
+    val changeDay: Double,
 
     @SerializedName("CHANGEPCTDAY")
-    val changePCTDay: Double? = null,
+    val changePCTDay: Double,
 
     @SerializedName("SUPPLY")
-    val supply: Int? = null,
+    val supply: Int,
 
     @SerializedName("MKTCAP")
-    val mktCap: Double? = null,
+    val mktCap: Double,
 
     @SerializedName("TOTALVOLUME24H")
-    val totalVolume24Hour: Double? = null,
+    val totalVolume24Hour: Double,
 
     @SerializedName("TOTALVOLUME24HTO")
-    val totalVolume24HourTo: Double? = null,
+    val totalVolume24HourTo: Double,
 
     @SerializedName("TOTALTOPTIERVOLUME24H")
-    val totalTopTierVolume24Hour: Double? = null,
+    val totalTopTierVolume24Hour: Double,
 
     @SerializedName("TOTALTOPTIERVOLUME24HTO")
-    val totalTopTierVolume24HourTo: Double? = null,
+    val totalTopTierVolume24HourTo: Double,
 
     @SerializedName("IMAGEURL")
-    val imageUrl: String? = null
+    val imageUrl: String
 ) {
     fun getFormattedTime() = convertTimestampToTime(lastUpdate)
 

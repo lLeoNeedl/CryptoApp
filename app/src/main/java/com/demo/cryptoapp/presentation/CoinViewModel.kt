@@ -1,13 +1,13 @@
-package com.demo.cryptoapp
+package com.demo.cryptoapp.presentation
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.demo.cryptoapp.api.ApiFactory
-import com.demo.cryptoapp.database.AppDatabase
-import com.demo.cryptoapp.pojo.CoinPriceInfo
-import com.demo.cryptoapp.pojo.CoinPriceInfoRawData
+import com.demo.cryptoapp.data.api.ApiFactory
+import com.demo.cryptoapp.data.database.AppDatabase
+import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
+import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

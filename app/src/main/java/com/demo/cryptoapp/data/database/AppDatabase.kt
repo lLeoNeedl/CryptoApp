@@ -1,11 +1,10 @@
-package com.demo.cryptoapp.database
+package com.demo.cryptoapp.data.database
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.demo.cryptoapp.pojo.CoinPriceInfo
+import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
 
 @Database(entities = [CoinPriceInfo::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
