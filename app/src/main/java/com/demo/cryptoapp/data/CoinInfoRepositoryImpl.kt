@@ -1,34 +1,43 @@
 package com.demo.cryptoapp.data
 
+import android.app.Application
 import androidx.lifecycle.LiveData
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfoRawData
-import com.demo.cryptoapp.domain.entity.top_coins_info.TopCoinsListOfData
+import androidx.lifecycle.Transformations
+import com.demo.cryptoapp.data.api.ApiFactory
+import com.demo.cryptoapp.data.database.AppDatabase
+import com.demo.cryptoapp.domain.entity.CoinPriceInfo
 import com.demo.cryptoapp.domain.repository.CoinInfoRepository
 
-class CoinInfoRepositoryImpl: CoinInfoRepository {
-    
-    override fun getTopCoinsInfo(apiKey: String, limit: Int, tSym: String): TopCoinsListOfData {
-        TODO("Not yet implemented")
+class CoinInfoRepositoryImpl(application: Application) : CoinInfoRepository {
+
+    private val mapper = CoinInfoMapper()
+
+    private val coinInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
+
+    override fun getTopCoinsInfo() =
+        mapper.parseTopCoinsListOfData(ApiFactory.apiService.getTopCoinsInfo())
+
+    override fun getPriceListFromInternet(fSyms: String): List<CoinPriceInfo> {
+        val listDTO = mapper.getPriceListFromRawData(
+            ApiFactory
+                .apiService
+                .getFullPriceList(fSyms = fSyms)
+        )
+        return mapper.mapListDTOtoListCoinPriceInfo(listDTO)
     }
 
-    override fun getPriceListFromInternet(
-        apiKey: String,
-        fSyms: String,
-        tSyms: String
-    ): CoinPriceInfoRawData {
-        TODO("Not yet implemented")
-    }
+    override fun getPriceList(): LiveData<List<CoinPriceInfo>> =
+        Transformations.map(coinInfoDao.getPriceList()) {
+            mapper.mapListDbModelToListCoinPriceInfo(it)
+        }
 
-    override fun getPriceList(): LiveData<List<CoinPriceInfo>> {
-        TODO("Not yet implemented")
-    }
+    override fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinPriceInfo> =
+        Transformations.map(coinInfoDao.getPriceInfoAboutCoin(fSym)) {
+            mapper.mapDbModelToCoinPriceInfo(it)
+        }
 
-    override fun getPriceInfoAboutCoin(): LiveData<CoinPriceInfo> {
-        TODO("Not yet implemented")
-    }
-
-    override fun insertPriceList() {
-        TODO("Not yet implemented")
+    override fun insertPriceList(list: List<CoinPriceInfo>) {
+        val listDbModel = mapper.mapListCoinPriceInfoToListDbModel(list)
+        coinInfoDao.insertPriceList(listDbModel)
     }
 }

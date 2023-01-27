@@ -1,8 +1,5 @@
 package com.demo.cryptoapp.data.api
 
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfoRawData
-import com.demo.cryptoapp.domain.entity.top_coins_info.TopCoinsListOfData
-import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

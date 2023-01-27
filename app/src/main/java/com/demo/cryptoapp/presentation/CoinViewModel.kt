@@ -6,9 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.demo.cryptoapp.data.api.ApiFactory
 import com.demo.cryptoapp.data.database.AppDatabase
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfoRawData
-import com.google.gson.Gson
+import com.demo.cryptoapp.domain.entity.CoinPriceInfo
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -43,24 +41,6 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("Test_of_loading_data", it.message.toString())
             })
         compositeDisposable.add(disposable)
-    }
-
-    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
-        val result = ArrayList<CoinPriceInfo>()
-        val jsonObject = coinPriceInfoRawData.coinPriceInfoJsonObject ?: return result
-        val coinKeySet = jsonObject.keySet()
-        for (coinKey in coinKeySet) {
-            val currencyJson = jsonObject.getAsJsonObject(coinKey)
-            val currencyKeySet = currencyJson.keySet()
-            for (currencyKey in currencyKeySet) {
-                val priceInfo = Gson().fromJson(
-                    currencyJson.getAsJsonObject(currencyKey),
-                    CoinPriceInfo::class.java
-                )
-                result.add(priceInfo)
-            }
-        }
-        return result
     }
 
     override fun onCleared() {

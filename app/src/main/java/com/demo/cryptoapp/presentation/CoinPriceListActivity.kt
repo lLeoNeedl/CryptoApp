@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.cryptoapp.R
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
+import com.demo.cryptoapp.domain.entity.CoinPriceInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
 

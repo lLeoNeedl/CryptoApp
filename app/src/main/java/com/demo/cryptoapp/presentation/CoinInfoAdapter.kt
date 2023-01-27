@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.demo.cryptoapp.R
-import com.demo.cryptoapp.domain.entity.coin_price_info.CoinPriceInfo
+import com.demo.cryptoapp.domain.entity.CoinPriceInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :

@@ -1,15 +1,10 @@
-package com.demo.cryptoapp.data.database
+package com.demo.cryptoapp.domain.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.demo.cryptoapp.data.api.ApiFactory
 import com.demo.cryptoapp.utils.convertTimestampToTime
-import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "full_price_list")
-data class CoinPriceInfoDbModel(
+data class CoinPriceInfo(
 
-    @PrimaryKey
     val fromSymbol: String,
 
     val toSymbol: String,
