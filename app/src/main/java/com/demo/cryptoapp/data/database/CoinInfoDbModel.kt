@@ -13,7 +13,7 @@ data class CoinInfoDbModel(
 
     val price: Double,
 
-    val lastUpdate: String,
+    val lastUpdate: Long,
 
     val highDay: Double,
 

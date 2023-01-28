@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import com.demo.cryptoapp.domain.repository.CoinInfoRepository
 import com.demo.cryptoapp.domain.entities.CoinInfo
 
-class GetPriceInfoAboutCoinUseCase(private val coinInfoRepository: CoinInfoRepository) {
+class GetCoinInfoUseCase(private val coinInfoRepository: CoinInfoRepository) {
 
     operator fun invoke(fSym: String): LiveData<CoinInfo> =
-        coinInfoRepository.getPriceInfoAboutCoin(fSym)
+        coinInfoRepository.getCoinInfo(fSym)
 }

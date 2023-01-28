@@ -1,4 +1,4 @@
-package com.demo.cryptoapp.presentation
+package com.demo.cryptoapp.presentation.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.cryptoapp.databinding.ItemCoinInfoBinding

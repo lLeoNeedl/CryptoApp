@@ -16,11 +16,14 @@ class CoinDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_coin_detail)
 
         parseIntent()
-        launchFragment()
+        if (savedInstanceState == null) {
+            launchFragment()
+        }
     }
 
     private fun parseIntent() {
-        fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: throw RuntimeException("Intent param from_symbol is absent")
+        fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL)
+            ?: throw RuntimeException("Intent param from_symbol is absent")
     }
 
     private fun launchFragment() {

@@ -5,13 +5,9 @@ import com.demo.cryptoapp.domain.entities.CoinInfo
 
 interface CoinInfoRepository {
 
-    suspend fun getTopCoinsInfo(): String
+    fun getCoinInfoList(): LiveData<List<CoinInfo>>
 
-    suspend fun getPriceListFromInternet(fSyms: String): List<CoinInfo>
+    fun getCoinInfo(fromSymbol: String): LiveData<CoinInfo>
 
-    fun getPriceList(): LiveData<List<CoinInfo>>
-
-    fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinInfo>
-
-    suspend fun insertPriceList(list: List<CoinInfo>)
+    suspend fun loadData()
 }

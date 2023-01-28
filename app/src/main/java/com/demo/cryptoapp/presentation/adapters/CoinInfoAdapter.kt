@@ -1,4 +1,4 @@
-package com.demo.cryptoapp.presentation
+package com.demo.cryptoapp.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.demo.cryptoapp.domain.entities.CoinInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
-    ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback()) {
+    ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback) {
 
     var onCoinClickListener: ((CoinInfo) -> Unit)? = null
 

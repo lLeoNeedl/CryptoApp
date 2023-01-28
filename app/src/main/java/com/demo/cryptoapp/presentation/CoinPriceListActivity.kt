@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.demo.cryptoapp.R
 import com.demo.cryptoapp.databinding.ActivityCoinPriceListBinding
+import com.demo.cryptoapp.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -24,8 +25,9 @@ class CoinPriceListActivity : AppCompatActivity() {
 
         coinInfoAdapter = CoinInfoAdapter(this)
         binding.recyclerViewCoinPriceList.adapter = coinInfoAdapter
+        binding.recyclerViewCoinPriceList.itemAnimator = null
 
-        viewModel.priceList.observe(this) {
+        viewModel.coinInfoList.observe(this) {
             coinInfoAdapter.submitList(it)
         }
 
@@ -35,11 +37,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     private fun setOnClickListeners() {
         coinInfoAdapter.onCoinClickListener = {
             if (isOnePaneMod()) {
-                val intent = CoinDetailActivity.newIntent(
-                    this@CoinPriceListActivity,
-                    it.fromSymbol
-                )
-                startActivity(intent)
+                launchActivity(it.fromSymbol)
             } else {
                 launchFragment(it.fromSymbol)
             }
@@ -47,6 +45,14 @@ class CoinPriceListActivity : AppCompatActivity() {
     }
 
     private fun isOnePaneMod() = binding.coinInfoContainer == null
+
+    private fun launchActivity(fromSymbol: String) {
+        val intent = CoinDetailActivity.newIntent(
+            this@CoinPriceListActivity,
+            fromSymbol
+        )
+        startActivity(intent)
+    }
 
     private fun launchFragment(fromSymbol: String) {
         supportFragmentManager.popBackStack()

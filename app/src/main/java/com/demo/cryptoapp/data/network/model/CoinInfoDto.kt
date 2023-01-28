@@ -1,8 +1,8 @@
-package com.demo.cryptoapp.data.api
+package com.demo.cryptoapp.data.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CoinInfoDTO(
+data class CoinInfoDto(
 
     @SerializedName("FROMSYMBOL")
     val fromSymbol: String? = null,
