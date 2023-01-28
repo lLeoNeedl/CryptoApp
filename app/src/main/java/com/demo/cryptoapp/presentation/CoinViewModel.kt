@@ -29,20 +29,14 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
         getPriceInfoAboutCoinUseCase.invoke(fSym)
 
     init {
-        loadData().retry()
+        loadData()
     }
 
-    private fun loadData(): Flow<List<CoinInfo>> {
-        return flow<List<CoinInfo>> {
+    private fun loadData() {
+        viewModelScope.launch {
             val topCoins = getTopCoinInfoUseCase.invoke()
             val priceList = getPriceListFromInternetUseCase.invoke(topCoins)
             insertPriceListUseCase.invoke(priceList)
-        }.flowOn(Dispatchers.Main)
-//        viewModelScope.launch {
-//            val topCoins = getTopCoinInfoUseCase.invoke()
-//            val priceList = getPriceListFromInternetUseCase.invoke(topCoins)
-//            insertPriceListUseCase.invoke(priceList)
-//        }
-//        flowOf(loadData()).retry()
+        }
     }
 }
