@@ -4,13 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.demo.cryptoapp.data.CoinInfoRepositoryImpl
-import com.demo.cryptoapp.domain.entities.CoinInfo
 import com.demo.cryptoapp.domain.usecases.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.launch
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
