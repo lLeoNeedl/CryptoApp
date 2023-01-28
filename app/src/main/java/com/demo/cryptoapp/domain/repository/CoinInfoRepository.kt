@@ -1,17 +1,17 @@
 package com.demo.cryptoapp.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.demo.cryptoapp.domain.entity.CoinPriceInfo
+import com.demo.cryptoapp.domain.entities.CoinInfo
 
 interface CoinInfoRepository {
 
-    fun getTopCoinsInfo(): String
+    suspend fun getTopCoinsInfo(): String
 
-    fun getPriceListFromInternet(fSyms: String): List<CoinPriceInfo>
+    suspend fun getPriceListFromInternet(fSyms: String): List<CoinInfo>
 
-    fun getPriceList(): LiveData<List<CoinPriceInfo>>
+    fun getPriceList(): LiveData<List<CoinInfo>>
 
-    fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinPriceInfo>
+    fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinInfo>
 
-    fun insertPriceList(list: List<CoinPriceInfo>)
+    suspend fun insertPriceList(list: List<CoinInfo>)
 }

@@ -1,11 +1,11 @@
 package com.demo.cryptoapp.data
 
 import com.demo.cryptoapp.data.api.ApiFactory
-import com.demo.cryptoapp.data.api.CoinPriceInfoDTO
-import com.demo.cryptoapp.data.api.CoinPriceInfoRawDataDTO
+import com.demo.cryptoapp.data.api.CoinInfoDTO
+import com.demo.cryptoapp.data.api.CoinInfoRawDataDTO
 import com.demo.cryptoapp.data.api.TopCoinsListOfDataDTO
-import com.demo.cryptoapp.data.database.CoinPriceInfoDbModel
-import com.demo.cryptoapp.domain.entity.CoinPriceInfo
+import com.demo.cryptoapp.data.database.CoinInfoDbModel
+import com.demo.cryptoapp.domain.entities.CoinInfo
 import com.google.gson.Gson
 import java.sql.Date
 import java.sql.Timestamp
@@ -15,10 +15,10 @@ import java.util.*
 class CoinInfoMapper {
 
     fun parseTopCoinsListOfData(topCoinsListOfDataDTO: TopCoinsListOfDataDTO) =
-        topCoinsListOfDataDTO.data?.map { it.coinInfo?.name }?.joinToString { "," } ?: ""
+        topCoinsListOfDataDTO.data?.map { it.coinInfo?.name }?.joinToString(",") ?: ""
 
-    fun getPriceListFromRawData(rawDataDTO: CoinPriceInfoRawDataDTO): List<CoinPriceInfoDTO> {
-        val result = mutableListOf<CoinPriceInfoDTO>()
+    fun getPriceListFromRawData(rawDataDTO: CoinInfoRawDataDTO): List<CoinInfoDTO> {
+        val result = mutableListOf<CoinInfoDTO>()
         val jsonObject = rawDataDTO.coinPriceJsonObject ?: return listOf()
         val coinKeySet = jsonObject.keySet()
         for (coinKey in coinKeySet) {
@@ -27,7 +27,7 @@ class CoinInfoMapper {
             for (currencyKey in currencyKeySet) {
                 val priceInfo = Gson().fromJson(
                     currencyJson.getAsJsonObject(currencyKey),
-                    CoinPriceInfoDTO::class.java
+                    CoinInfoDTO::class.java
                 )
                 result.add(priceInfo)
             }
@@ -35,48 +35,48 @@ class CoinInfoMapper {
         return result
     }
 
-    private fun mapDTOtoCoinPriceInfo(coinPriceInfoDTO: CoinPriceInfoDTO) = CoinPriceInfo(
-        fromSymbol = coinPriceInfoDTO.fromSymbol ?: "",
-        toSymbol = coinPriceInfoDTO.toSymbol ?: "",
-        price = coinPriceInfoDTO.price ?: 0.0,
-        lastUpdate = getFormattedTime(coinPriceInfoDTO.lastUpdate),
-        highDay = coinPriceInfoDTO.highDay ?: 0.0,
-        lowDay = coinPriceInfoDTO.lowDay ?: 0.0,
-        lastMarket = coinPriceInfoDTO.lastMarket ?: "",
-        imageUrl = getFullImageUrl(coinPriceInfoDTO.imageUrl)
+    private fun mapDTOtoCoinPriceInfo(coinInfoDTO: CoinInfoDTO) = CoinInfo(
+        fromSymbol = coinInfoDTO.fromSymbol ?: "",
+        toSymbol = coinInfoDTO.toSymbol ?: "",
+        price = coinInfoDTO.price ?: 0.0,
+        lastUpdate = getFormattedTime(coinInfoDTO.lastUpdate),
+        highDay = coinInfoDTO.highDay ?: 0.0,
+        lowDay = coinInfoDTO.lowDay ?: 0.0,
+        lastMarket = coinInfoDTO.lastMarket ?: "",
+        imageUrl = getFullImageUrl(coinInfoDTO.imageUrl)
     )
 
-    fun mapListDTOtoListCoinPriceInfo(list: kotlin.collections.List<CoinPriceInfoDTO>) =
+    fun mapListDTOtoListCoinPriceInfo(list: kotlin.collections.List<CoinInfoDTO>) =
         list.map { mapDTOtoCoinPriceInfo(it) }
 
-    private fun mapCoinPriceInfoToDbModel(coinPriceInfo: CoinPriceInfo) =
-        CoinPriceInfoDbModel(
-            fromSymbol = coinPriceInfo.fromSymbol,
-            toSymbol = coinPriceInfo.toSymbol,
-            price = coinPriceInfo.price,
-            lastUpdate = coinPriceInfo.lastUpdate,
-            highDay = coinPriceInfo.highDay,
-            lowDay = coinPriceInfo.lowDay,
-            lastMarket = coinPriceInfo.lastMarket,
-            imageUrl = coinPriceInfo.imageUrl
+    private fun mapCoinPriceInfoToDbModel(coinInfo: CoinInfo) =
+        CoinInfoDbModel(
+            fromSymbol = coinInfo.fromSymbol,
+            toSymbol = coinInfo.toSymbol,
+            price = coinInfo.price,
+            lastUpdate = coinInfo.lastUpdate,
+            highDay = coinInfo.highDay,
+            lowDay = coinInfo.lowDay,
+            lastMarket = coinInfo.lastMarket,
+            imageUrl = coinInfo.imageUrl
         )
 
-    fun mapListDbModelToListCoinPriceInfo(list: List<CoinPriceInfoDbModel>) =
+    fun mapListDbModelToListCoinPriceInfo(list: List<CoinInfoDbModel>) =
         list.map { mapDbModelToCoinPriceInfo(it) }
 
-    fun mapDbModelToCoinPriceInfo(coinPriceInfoDbModel: CoinPriceInfoDbModel) =
-        CoinPriceInfo(
-            fromSymbol = coinPriceInfoDbModel.fromSymbol,
-            toSymbol = coinPriceInfoDbModel.toSymbol,
-            price = coinPriceInfoDbModel.price,
-            lastUpdate = coinPriceInfoDbModel.lastUpdate,
-            highDay = coinPriceInfoDbModel.highDay,
-            lowDay = coinPriceInfoDbModel.lowDay,
-            lastMarket = coinPriceInfoDbModel.lastMarket,
-            imageUrl = coinPriceInfoDbModel.imageUrl
+    fun mapDbModelToCoinPriceInfo(coinInfoDbModel: CoinInfoDbModel) =
+        CoinInfo(
+            fromSymbol = coinInfoDbModel.fromSymbol,
+            toSymbol = coinInfoDbModel.toSymbol,
+            price = coinInfoDbModel.price,
+            lastUpdate = coinInfoDbModel.lastUpdate,
+            highDay = coinInfoDbModel.highDay,
+            lowDay = coinInfoDbModel.lowDay,
+            lastMarket = coinInfoDbModel.lastMarket,
+            imageUrl = coinInfoDbModel.imageUrl
         )
 
-    fun mapListCoinPriceInfoToListDbModel(list: List<CoinPriceInfo>) =
+    fun mapListCoinPriceInfoToListDbModel(list: List<CoinInfo>) =
         list.map { mapCoinPriceInfoToDbModel(it) }
 
     private fun getFormattedTime(timestamp: Long?): String {

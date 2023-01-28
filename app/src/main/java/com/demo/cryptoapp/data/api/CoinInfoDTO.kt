@@ -2,7 +2,7 @@ package com.demo.cryptoapp.data.api
 
 import com.google.gson.annotations.SerializedName
 
-data class CoinPriceInfoDTO(
+data class CoinInfoDTO(
 
     @SerializedName("FROMSYMBOL")
     val fromSymbol: String? = null,
