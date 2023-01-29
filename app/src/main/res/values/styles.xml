@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CoinDetailsTextStyle">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CoinDetailsSlashLinesStyle">
+        <item name="android:background">@color/black</item>
+    </style>
+</resources>
