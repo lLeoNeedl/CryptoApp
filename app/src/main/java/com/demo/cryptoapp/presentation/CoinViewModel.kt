@@ -8,14 +8,14 @@ import com.demo.cryptoapp.domain.usecases.GetCoinInfoListUseCase
 import com.demo.cryptoapp.domain.usecases.GetCoinInfoUseCase
 import com.demo.cryptoapp.domain.usecases.LoadDataUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CoinViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = CoinInfoRepositoryImpl(application)
-
-    private val getCoinInfoListUseCase = GetCoinInfoListUseCase(repository)
-    private val getCoinInfoUseCase = GetCoinInfoUseCase(repository)
-    private val loadDataUseCase = LoadDataUseCase(repository)
+class CoinViewModel @Inject constructor(
+    application: Application,
+    getCoinInfoListUseCase: GetCoinInfoListUseCase,
+    private val getCoinInfoUseCase: GetCoinInfoUseCase,
+    loadDataUseCase: LoadDataUseCase
+) : AndroidViewModel(application) {
 
     val coinInfoList = getCoinInfoListUseCase()
 

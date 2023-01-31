@@ -11,8 +11,9 @@ import java.sql.Date
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class CoinInfoMapper {
+class CoinInfoMapper @Inject constructor() {
 
     fun mapDtoToDbModel(coinInfoDTO: CoinInfoDto) = CoinInfoDbModel(
         fromSymbol = coinInfoDTO.fromSymbol ?: EMPTY_SYMBOL,
