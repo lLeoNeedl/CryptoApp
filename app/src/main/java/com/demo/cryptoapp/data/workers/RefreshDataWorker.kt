@@ -12,18 +12,20 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
 import com.demo.cryptoapp.R
 import com.demo.cryptoapp.data.database.AppDatabase
+import com.demo.cryptoapp.data.database.CoinInfoDao
 import com.demo.cryptoapp.data.mapper.CoinInfoMapper
 import com.demo.cryptoapp.data.network.ApiFactory
+import com.demo.cryptoapp.data.network.ApiService
 import kotlinx.coroutines.delay
 
 class RefreshDataWorker(
     private val context: Context,
-    workerParameters: WorkerParameters
+    workerParameters: WorkerParameters,
+    private val coinInfoDao: CoinInfoDao,
+    private val apiService: ApiService,
+    private val mapper: CoinInfoMapper
 ) : CoroutineWorker(context, workerParameters) {
 
-    private val mapper = CoinInfoMapper()
-    private val coinInfoDao = AppDatabase.getInstance(context).coinInfoDao()
-    private val apiService = ApiFactory.apiService
     private val notificationManager =
         applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
