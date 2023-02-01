@@ -6,28 +6,24 @@ import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.work.CoroutineWorker
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.demo.cryptoapp.R
-import com.demo.cryptoapp.data.database.AppDatabase
 import com.demo.cryptoapp.data.database.CoinInfoDao
 import com.demo.cryptoapp.data.mapper.CoinInfoMapper
 import com.demo.cryptoapp.data.network.ApiFactory
 import com.demo.cryptoapp.data.network.ApiService
 import kotlinx.coroutines.delay
+import java.lang.reflect.Constructor
+import javax.inject.Inject
 
-class RefreshDataWorker(
+class RefreshDataWorker (
     private val context: Context,
     workerParameters: WorkerParameters,
     private val coinInfoDao: CoinInfoDao,
     private val apiService: ApiService,
-    private val mapper: CoinInfoMapper
+    private val mapper: CoinInfoMapper,
+    private val notificationManager: NotificationManager
 ) : CoroutineWorker(context, workerParameters) {
-
-    private val notificationManager =
-        applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
     override suspend fun doWork(): Result {
         var isLoading = false
@@ -81,5 +77,27 @@ class RefreshDataWorker(
 
         fun makeRequest(): OneTimeWorkRequest =
             OneTimeWorkRequestBuilder<RefreshDataWorker>().build()
+    }
+
+    class Factory @Inject constructor(
+        private val coinInfoDao: CoinInfoDao,
+        private val apiService: ApiService,
+        private val mapper: CoinInfoMapper,
+        private val notificationManager: NotificationManager
+    ): ChildWorkerFactory {
+
+        override fun create(
+            context: Context,
+            workerParameters: WorkerParameters
+        ): ListenableWorker {
+            return RefreshDataWorker(
+                context,
+                workerParameters,
+                coinInfoDao,
+                apiService,
+                mapper,
+                notificationManager
+            )
+        }
     }
 }
