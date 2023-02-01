@@ -1,4 +1,4 @@
-package com.demo.cryptoapp.presentation
+package com.demo.cryptoapp.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.demo.cryptoapp.databinding.FragmentCoinDetailBinding
+import com.demo.cryptoapp.presentation.app.CoinInfoApp
+import com.demo.cryptoapp.presentation.viewmodels.CoinViewModel
+import com.demo.cryptoapp.presentation.viewmodels.ViewModelFactory
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
 
@@ -15,13 +19,21 @@ class CoinDetailFragment : Fragment() {
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding == null")
 
+    private val component by lazy {
+        (requireActivity().application as CoinInfoApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by lazy {
-        ViewModelProvider(this)[CoinViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
 
     private var fromSymbol: String = SYMBOL_UNKNOWN
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         parseArgs()
     }

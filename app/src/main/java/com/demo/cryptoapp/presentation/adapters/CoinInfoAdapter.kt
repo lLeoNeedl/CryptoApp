@@ -1,5 +1,6 @@
 package com.demo.cryptoapp.presentation.adapters
 
+import android.app.Application
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +9,9 @@ import com.demo.cryptoapp.R
 import com.demo.cryptoapp.databinding.ItemCoinInfoBinding
 import com.demo.cryptoapp.domain.entities.CoinInfo
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
-class CoinInfoAdapter(private val context: Context) :
+class CoinInfoAdapter @Inject constructor(private val application: Application) :
     ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback) {
 
     var onCoinClickListener: ((CoinInfo) -> Unit)? = null
@@ -29,8 +31,10 @@ class CoinInfoAdapter(private val context: Context) :
         val binding = holder.binding
         with(binding) {
             with(coin) {
-                val symbolsTemplate = context.resources.getString(R.string.symbols_template)
-                val lastUpdateTemplate = context.resources.getString(R.string.last_update_template)
+                val symbolsTemplate =
+                    application.resources.getString(R.string.symbols_template)
+                val lastUpdateTemplate =
+                    application.resources.getString(R.string.last_update_template)
 
                 tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                 tvPriceInfo.text = price.toString()

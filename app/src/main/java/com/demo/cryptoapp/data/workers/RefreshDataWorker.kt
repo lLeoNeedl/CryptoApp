@@ -22,7 +22,7 @@ class RefreshDataWorker(
 ) : CoroutineWorker(context, workerParameters) {
 
     private val mapper = CoinInfoMapper()
-    private val coinInfoDao = AppDatabase.getInstance(context).coinPriceInfoDao()
+    private val coinInfoDao = AppDatabase.getInstance(context).coinInfoDao()
     private val apiService = ApiFactory.apiService
     private val notificationManager =
         applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager

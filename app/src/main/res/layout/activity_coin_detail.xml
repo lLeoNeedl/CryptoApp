@@ -4,7 +4,7 @@
     android:id="@+id/coin_info_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.CoinDetailActivity"
+    tools:context=".presentation.ui.CoinDetailActivity"
     tools:layout="@layout/fragment_coin_detail">
 
 </androidx.fragment.app.FragmentContainerView>
