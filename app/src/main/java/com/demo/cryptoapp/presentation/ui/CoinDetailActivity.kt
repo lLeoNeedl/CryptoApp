@@ -1,11 +1,10 @@
-package com.demo.cryptoapp.presentation
+package com.demo.cryptoapp.presentation.ui
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.demo.cryptoapp.R
-import com.demo.cryptoapp.databinding.ActivityCoinDetailBinding
 
 class CoinDetailActivity : AppCompatActivity() {
 

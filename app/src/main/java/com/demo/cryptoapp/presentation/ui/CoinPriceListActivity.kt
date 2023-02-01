@@ -1,11 +1,15 @@
-package com.demo.cryptoapp.presentation
+package com.demo.cryptoapp.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.demo.cryptoapp.R
 import com.demo.cryptoapp.databinding.ActivityCoinPriceListBinding
+import com.demo.cryptoapp.presentation.app.CoinInfoApp
+import com.demo.cryptoapp.presentation.viewmodels.CoinViewModel
+import com.demo.cryptoapp.presentation.viewmodels.ViewModelFactory
 import com.demo.cryptoapp.presentation.adapters.CoinInfoAdapter
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -13,17 +17,25 @@ class CoinPriceListActivity : AppCompatActivity() {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[CoinViewModel::class.java]
+    private val component by lazy {
+        (application as CoinInfoApp).component
     }
 
-    private lateinit var coinInfoAdapter: CoinInfoAdapter
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
+
+    @Inject
+    lateinit var coinInfoAdapter: CoinInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        coinInfoAdapter = CoinInfoAdapter(this)
         binding.recyclerViewCoinPriceList.adapter = coinInfoAdapter
         binding.recyclerViewCoinPriceList.itemAnimator = null
 

@@ -2,16 +2,20 @@ package com.demo.cryptoapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import retrofit2.http.DELETE
 
 @Dao
 interface CoinInfoDao {
 
-    @androidx.room.Query("SELECT * FROM full_price_list ORDER BY lastUpdate DESC")
+    @Query("SELECT * FROM full_price_list ORDER BY lastUpdate DESC")
     fun getPriceList(): LiveData<List<CoinInfoDbModel>>
 
-    @androidx.room.Query("SELECT * FROM full_price_list WHERE fromSymbol == :fSym LIMIT 1")
+    @Query("SELECT * FROM full_price_list WHERE fromSymbol == :fSym LIMIT 1")
     fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinInfoDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
