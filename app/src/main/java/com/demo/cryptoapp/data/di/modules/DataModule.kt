@@ -1,7 +1,6 @@
 package com.demo.cryptoapp.data.di.modules
 
 import android.app.Application
-import android.app.NotificationManager
 import android.content.Context
 import com.demo.cryptoapp.data.database.AppDatabase
 import com.demo.cryptoapp.data.database.CoinInfoDao
@@ -24,10 +23,5 @@ class DataModule {
     @ApplicationScope
     fun provideApiService(): ApiService {
         return ApiFactory.apiService
-    }
-
-    @Provides
-    fun provideNotificationManager(application: Application): NotificationManager {
-        return application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 }
